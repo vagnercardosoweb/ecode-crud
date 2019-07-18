@@ -1,0 +1,55 @@
+<?php
+
+/*
+ * VCWeb Networks <https://www.vcwebnetworks.com.br/>
+ *
+ * @author Vagner Cardoso <vagnercardosoweb@gmail.com>
+ * @license http://www.opensource.org/licenses/mit-license.html MIT License
+ * @copyright {DATE} Vagner Cardoso
+ */
+
+$namespaceDefinition
+
+use $useClassName;
+
+/**
+ * Class $className
+ *
+ * @author Vagner Cardoso <vagnercardosoweb@gmail.com>
+ */
+class $className extends $baseClassName
+{
+    /**
+     * @var string
+     */
+    protected $table = '';
+
+    /**
+     * @var string
+     */
+    protected $primaryKey = false;
+
+    /**
+     * @throws \Exception
+     *
+     * @return void
+     *
+     * @see http://docs.phinx.org/en/latest/migrations.html
+     */
+    public function up(): void
+    {
+        $this->table($this->table)
+            ->addColumn('column_name', 'type', [])
+            ->save();
+    }
+
+    /**
+     * @throws \Exception
+     *
+     * @return void
+     */
+    public function down(): void
+    {
+         // $this->table($this->table)->drop()->save();
+    }
+}
