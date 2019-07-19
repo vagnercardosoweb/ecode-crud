@@ -1,0 +1,79 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="text-center">
+      <button
+        data-modal="{{ {
+          'id':'#modalAddress',
+          'url':path_for('api.util', {'method':'modalDetail'}),
+          'data':{
+            'view':'@web/person/_address-modal',
+            'person':person.id,
+            'type':type
+          }
+        }|json_encode }}"
+        class="btn btn-primary btn-xs"
+      >Adicionar endereço
+      </button>
+    </div>
+    
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-condensed table-vertical-middle" data-toggle="datatable">
+        <thead>
+          <tr>
+            <th width="50">Ações</th>
+            <th>Nome</th>
+            <th>Endereço</th>
+            <th>Número</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          {% for addr in person.address() %}
+            {% set formattedAddr = (addr.street~' - '~addr.district~', '~addr.city~' - '~addr.state~', <span class="maskCep">'~addr.zipcode~'</span>, '~addr.country)|raw %}
+            
+            <tr>
+              <td class="text-center d-flex align-items-center justify-content-between">
+                <button
+                  data-modal="{{ {
+                    'id':'#modalAddress',
+                    'url':path_for('api.util', {'method':'modalDetail'}),
+                    'data':{
+                      'id':addr.id,
+                      'model':'address',
+                      'view':'@web/person/_address-modal',
+                      'person':person.id,
+                      'type':type
+                    }
+                  }|json_encode }}"
+                  class="btn btn-sm btn-primary mright-3"
+                  title="Atualizar"
+                ><i class="fa fa-edit"></i></button>
+                
+                <button
+                  data-modal="{{ {
+                    'id':'#modalAddress',
+                    'url':path_for('api.util', {'method':'modalDetail'}),
+                    'data':{
+                      'id':addr.id,
+                      'model':'address',
+                      'view':'@web/person/_address-modal',
+                      'person':person.id,
+                      'type':type,
+                      'delete':true
+                    }
+                  }|json_encode }}"
+                  class="btn btn-sm btn-danger"
+                  title="Remover"
+                ><i class="fa fa-trash"></i></button>
+              </td>
+              
+              <td>{{ addr.name|raw }}</td>
+              <td>{{ formattedAddr|raw }}</td>
+              <td>{{ addr.number|raw }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

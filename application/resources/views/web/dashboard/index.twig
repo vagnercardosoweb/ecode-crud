@@ -1,0 +1,101 @@
+{# Layout #}
+{% extends '@web/layout/app.twig' %}
+
+{# Content #}
+{% block content %}
+  <div class="container mt-5">
+    <h1>Pessoas físicas</h1>
+    <hr>
+    
+    <table class="table table-bordered table-sm" data-toggle="datatable">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>RG</th>
+          <th>Sexo</th>
+          <th>Data de N.</th>
+          <th>Criado Em</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        {% for row in users %}
+          <tr>
+            <td class="d-flex align-items-center justify-content-around">
+              <a
+                href="{{ path_for('web.person', {'type':'fisica', 'id':row.id}) }}"
+                class="btn btn-sm btn-primary"
+              >
+                <i class="fa fa-edit"></i>
+              </a>
+              
+              <a
+                href="javascript:void(0);"
+                class="btn btn-sm btn-danger"
+                vc-delete="{{ path_for('web.person', {'type':'fisica', 'id':row.id}) }}"
+              >
+                <i class="fa fa-trash"></i>
+              </a>
+            </td>
+            
+            <td>{{ row.name|raw }}</td>
+            <td class="maskCpf">{{ row.cpf|raw }}</td>
+            <td class="maskRg">{{ row.rg|raw }}</td>
+            <td>{{ row.sex == 'male' ? 'Masculino' : 'Feminino' }}</td>
+            <td>{{ row.date_of_birtd|date('d/m/Y') }}</td>
+            <td>
+            {{ row.created_at|date('d/m/Y H:i') }}</th>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    
+    <hr>
+    <h1>Pessoas juridica</h1>
+    <hr>
+    
+    <table class="table table-bordered table-sm" data-toggle="datatable">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Razão S.</th>
+          <th>CNPJ</th>
+          <th>Inscrição E.</th>
+          <th>Data de F.</th>
+          <th>Criado Em</th>
+        </tr>
+      </thead>
+      
+      <tbody>
+        {% for row in users_legal %}
+          <tr>
+            <td class="d-flex align-items-center justify-content-around">
+              <a
+                href="{{ path_for('web.person', {'type':'juridica', 'id':row.id}) }}"
+                class="btn btn-sm btn-primary"
+              >
+                <i class="fa fa-edit"></i>
+              </a>
+              
+              <a
+                href="javascript:void(0);"
+                class="btn btn-sm btn-danger"
+                vc-delete="{{ path_for('web.person', {'type':'juridica', 'id':row.id}) }}"
+              >
+                <i class="fa fa-trash"></i>
+              </a>
+            </td>
+            
+            <td>{{ row.corporate_name|raw }}</td>
+            <td class="maskCnpj">{{ row.cnpj|raw }}</td>
+            <td>{{ row.state_registration|raw }}</td>
+            <td>{{ row.date_of_foundation|date('d/m/Y') }}</td>
+            <td>{{ row.created_at|date('d/m/Y H:i') }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

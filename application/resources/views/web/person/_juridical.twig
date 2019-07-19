@@ -1,0 +1,87 @@
+{% set action = row.id ? path_for('web.person', {'type':type, 'id':row.id}) : path_for('web.person', {'type':type}) %}
+{% set method = row.id ? 'put' : 'post' %}
+
+<form action="{{ action|raw }}" method="{{ method|raw }}" class="vc-error-none">
+  {% if not row %}
+    <p class="text-center text-muted">
+      <b>Obs:</b> para cadastrar o endereços e telefones deve criar a pessoa antes.
+    </p>
+  {% endif %}
+  
+  <div class="form-group">
+    <label for="cnpj">CNPJ</label>
+    <input
+      type="text"
+      class="form-control maskCnpj"
+      name="cnpj"
+      id="cnpj"
+      value="{{ row.cnpj|raw }}"
+      placeholder="CNPJ"
+      required
+    >
+  </div>
+  
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="corporate_name">Razão Social</label>
+      <input
+        type="text"
+        class="form-control"
+        name="corporate_name"
+        id="corporate_name"
+        value="{{ row.corporate_name|raw }}"
+        placeholder="Razão social"
+        required
+      >
+    </div>
+    
+    <div class="form-group col-md-6">
+      <label for="fancy_name">Nome Fantasia</label>
+      <input
+        type="text"
+        class="form-control"
+        name="fancy_name"
+        id="fancy_name"
+        value="{{ row.fancy_name|raw }}"
+        placeholder="Nome fantasia"
+        required
+      >
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="state_registration">Inscrição estadual</label>
+      <input
+        type="number"
+        class="form-control"
+        name="state_registration"
+        id="state_registration"
+        value="{{ row.state_registration|raw }}"
+        placeholder="Inscrição estadual"
+        required
+      >
+    </div>
+    
+    <div class="form-group col-md-6">
+      <label for="date_of_foundation">Data de fundação</label>
+      <input
+        type="text"
+        class="form-control maskDateTime"
+        name="date_of_foundation"
+        id="date_of_foundation"
+        value="{{ (row.date_of_foundation ? row.date_of_foundation|date('d/m/Y H:i:s') : '')|raw }}"
+        required
+      >
+    </div>
+  </div>
+  
+  <div id="vc-message"></div>
+  
+  <button
+    vc-form
+    vc-loadding="Aguarde..."
+    class="btn btn-success btn-sm"
+  >{{ row ? 'Atualizar' : 'Cadastrar' }}
+  </button>
+</form>

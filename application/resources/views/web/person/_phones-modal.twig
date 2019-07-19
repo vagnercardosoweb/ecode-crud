@@ -1,0 +1,33 @@
+{% set action = row.id ? path_for('api.phones', {'id':row.id}) : path_for('api.phones') %}
+{% set method = row.id ? 'put' : 'post' %}
+
+<form action="{{ action|raw }}" method="{{ (delete ? 'delete' : method)|raw }}" class="vc-error-none">
+  {% if delete %}
+    <p class="text-center">Deseja deletar esse registro? Essa ação é irreversível.</p>
+  {% else %}
+    {% if type and person %}
+      <input type="hidden" name="{{ type == 'fisica' ? 'user_id' : 'user_id_legal' }}" id="person" value="{{ person|raw }}">
+    {% endif %}
+    
+    <div class="form-group">
+      <label for="name" class="control-label">Nome <sub class="text-danger">*</sub></label>
+      <input type="text" name="name" id="name" class="form-control" value="{{ row.name|raw }}" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="number" class="control-label">Número <sub class="text-danger">*</sub></label>
+      <input type="text" name="number" id="number" class="form-control maskPhone" value="{{ row.number|raw }}" required>
+    </div>
+  {% endif %}
+  
+  <div id="vc-message"></div>
+  
+  <div class="modal-footer">
+    <button class="btn btn-secondary" data-dismiss="modal" type="button">Fechar</button>
+    <button
+      vc-form
+      vc-loadding="Aguarde..."
+      class="btn btn-primary"
+    >{{ (delete ? 'Deletar' : (row.id ? 'Atualizar' : 'Adicionar')) }}</button>
+  </div>
+</form>

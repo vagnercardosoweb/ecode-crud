@@ -1,0 +1,28 @@
+{# Layout #}
+{% extends '@web/layout/app.twig' %}
+
+{# Content #}
+{% block content %}
+  <div class="container mt-5">
+    <h1 class="text-center">Cadastrar pessoa</h1>
+    <hr>
+    
+    {% include '@web/person/_buttons.twig' with {'row':row} %}
+    
+    <hr>
+    
+    {% if not type is empty %}
+      <p class="text-muted text-center mb-0">
+        Hey <b>{{ auth.name|raw }}</b>, você está no gerenciamento de <b>pessoa {{ type == 'fisica' ? 'física' : 'jurídica' }}</b>.
+      </p>
+      
+      {% if type == 'fisica' %}
+        {% include '@web/person/_physics.twig' with {'type':type} %}
+      {% endif %}
+      
+      {% if type == 'juridica' %}
+        {% include '@web/person/_juridical.twig' with {'type':type} %}
+      {% endif %}
+    {% endif %}
+  </div>
+{% endblock %}

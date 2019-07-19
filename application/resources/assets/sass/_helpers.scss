@@ -86,6 +86,28 @@ $socialColors: map_merge(
   }
 }
 
+.vc-error-none {
+  .vc-error-box {
+    display: none !important;
+  }
+}
+
+/* Modal */
+.modal-body-footer {
+  .modal-body {
+    // padding-bottom: 0;
+    
+    .alert {
+      margin-bottom: 0;
+    }
+    
+    .modal-footer {
+      margin: 15px -15px 0;
+      padding-bottom: 0 !important;
+    }
+  }
+}
+
 /* BOX SHADOWS */
 .shadow-0 {
   box-shadow: none !important;

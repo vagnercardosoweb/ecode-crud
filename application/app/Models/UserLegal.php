@@ -14,25 +14,25 @@ use Core\Date;
 use Core\Helpers\Validate;
 
 /**
- * Class User.
+ * Class UserLegal.
  *
  * @property int    $id
- * @property string $name
- * @property string $cpf
- * @property string $rg
- * @property string $sex
- * @property string $date_of_birth
+ * @property string $cnpj
+ * @property string $corporate_name
+ * @property string $fancy_name
+ * @property string $state_registration
+ * @property string $date_of_foundation
  * @property string $created_at
  * @property string $updated_at
  *
  * @author Vagner Cardoso <vagnercardosoweb@gmail.com>
  */
-class User extends BaseModel
+class UserLegal extends BaseModel
 {
     /**
      * @var string
      */
-    protected $table = 'ecode_users';
+    protected $table = 'ecode_users_legal';
 
     /**
      * @var string
@@ -47,7 +47,7 @@ class User extends BaseModel
     public function address(): ?array
     {
         return (new Address())->reset()
-            ->where('AND user_id = :id', "id={$this->id}")
+            ->where('AND user_id_legal = :id', "id={$this->id}")
             ->fetchAll()
         ;
     }
@@ -60,7 +60,7 @@ class User extends BaseModel
     public function phones(): ?array
     {
         return (new Phone())->reset()
-            ->where('AND user_id = :id', "id={$this->id}")
+            ->where('AND user_id_legal = :id', "id={$this->id}")
             ->fetchAll()
         ;
     }
@@ -73,7 +73,7 @@ class User extends BaseModel
     public function deleteAddress(): void
     {
         (new Address())->reset()
-            ->where('AND user_id = :id', "id={$this->id}")
+            ->where('AND user_id_legal = :id', "id={$this->id}")
             ->delete()
         ;
     }
@@ -86,7 +86,7 @@ class User extends BaseModel
     public function deletePhones(): void
     {
         (new Phone())->reset()
-            ->where('AND user_id = :id', "id={$this->id}")
+            ->where('AND user_id_legal = :id', "id={$this->id}")
             ->delete()
         ;
     }
@@ -107,40 +107,33 @@ class User extends BaseModel
             : null;
 
         // Values number
-        foreach (['cpf', 'rg'] as $item) {
+        foreach (['cnpj'] as $item) {
             if (!empty($data[$item])) {
                 $data[$item] = preg_replace('/[^0-9]/i', '', $data[$item]);
             }
         }
 
         // Values date
-        foreach (['date_of_birth', 'created_at', 'updated_at'] as $item) {
+        foreach (['date_of_foundation', 'created_at', 'updated_at'] as $item) {
             if (!empty($data[$item])) {
-                if ('date_of_birth' == $item) {
-                    $data[$item] = Date::formatFromDateDatabase($data[$item]);
-                } else {
-                    $data[$item] = Date::formatFromDateTimeDatabase($data[$item]);
-                }
+                $data[$item] = Date::formatFromDateTimeDatabase($data[$item]);
             }
         }
 
         // Validations
         if ($validate) {
             Validate::rules($data, [
-                'name' => ['required' => 'Nome é obrigatório.'],
-                'cpf' => [
-                    'cpf' => 'Cpf informado não é válido.',
+                'cnpj' => [
+                    'cnpj' => 'CNPJ informado não é válido.',
                     'databaseNotExists' => [
-                        'message' => 'Cpf informado já está em uso, favor digite outro.',
-                        'params' => [$this->table(), 'cpf', $where],
+                        'message' => 'CNPJ informado já está em uso, favor digite outro.',
+                        'params' => [$this->table(), 'cnpj', $where],
                     ],
                 ],
-                'rg' => [
-                    'databaseNotExists' => [
-                        'message' => 'Rg informado já está em uso, favor digite outro.',
-                        'params' => [$this->table(), 'rg', $where],
-                    ],
-                ],
+                'corporate_name' => ['required' => 'Razão social é obrigatório.'],
+                'fancy_name' => ['required' => 'Nome fantasia é obrigatório.'],
+                'state_registration' => ['required' => 'Inscrição estadual é obrigatório.'],
+                'date_of_foundation' => ['required' => 'Data de fundação é obrigatório.'],
                 'sex' => [
                     'inArray' => [
                         'message' => 'O Sexo selecionado não é válido.',

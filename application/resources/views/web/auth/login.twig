@@ -1,0 +1,35 @@
+{# Layout #}
+{% extends "@web/layout/app.twig" %}
+
+{# Content #}
+{% block content %}
+  <div class="main-login d-flex align-items-center justify-content-center">
+    <form action="{{ path_for('api.auth') }}" method="post" class="vc-error-none">
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input
+          type="email"
+          class="form-control"
+          name="email"
+          id="email"
+          placeholder="Digite seu e-mail"
+          required
+        >
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" class="form-control" name="password" id="password" placeholder="Digite sua senha" required>
+      </div>
+      
+      <div id="vc-message"></div>
+      
+      <button
+        vc-form
+        vc-loadding="Aguarde..."
+        class="btn btn-primary btn-sm"
+      >Entrar
+      </button>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+<div class="text-center">
+  <p class="text-muted">
+    {% if row %}
+      Deseja cadastrar uma nova pessoa? <br />
+    {% endif %}
+    
+    Clica em qual tipo de pessoa você deseja cadastrar.
+  </p>
+  
+  <a
+    href="{{ path_for('web.person', {'type':'fisica'}) }}"
+    class="btn btn-primary{{ type == 'fisica' ? ' active' : '' }}"
+  >Cadastrar Pessoa Física
+  </a>
+  
+  <a
+    href="{{ path_for('web.person', {'type':'juridica'}) }}"
+    class="btn btn-primary{{ type == 'juridica' ? ' active' : '' }}"
+  >Cadastrar Pessoa Jurídica
+  </a>
+</div>

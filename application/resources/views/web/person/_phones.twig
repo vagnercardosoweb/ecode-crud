@@ -1,0 +1,77 @@
+<div class="row mb-5">
+  <div class="col-md-12">
+    <div class="text-center">
+      <button
+        data-modal="{{ {
+          'id':'#modalPhones',
+          'url':path_for('api.util', {'method':'modalDetail'}),
+          'data':{
+            'view':'@web/person/_phones-modal',
+            'person':person.id,
+            'type':type
+          }
+        }|json_encode }}"
+        class="btn btn-primary btn-xs"
+      >Adicionar telefone
+      </button>
+    </div>
+    
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-condensed table-vertical-middle" data-toggle="datatable">
+        <thead>
+          <tr>
+            <th width="50">Ações</th>
+            <th>Nome</th>
+            <th>Número</th>
+            <th>Criado Em</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          {% for phone in person.phones() %}
+            <tr>
+              <td class="text-center d-flex align-items-center justify-content-between">
+                <button
+                  data-modal="{{ {
+                    'id':'#modalPhones',
+                    'url':path_for('api.util', {'method':'modalDetail'}),
+                    'data':{
+                      'id':phone.id,
+                      'model':'phone',
+                      'view':'@web/person/_phones-modal',
+                      'person':person.id,
+                      'type':type
+                    }
+                  }|json_encode }}"
+                  class="btn btn-sm btn-primary mright-3"
+                  title="Atualizar"
+                ><i class="fa fa-edit"></i></button>
+                
+                <button
+                  data-modal="{{ {
+                    'id':'#modalPhones',
+                    'url':path_for('api.util', {'method':'modalDetail'}),
+                    'data':{
+                      'id':phone.id,
+                      'model':'phone',
+                      'view':'@web/person/_phones-modal',
+                      'person':person.id,
+                      'type':type,
+                      'delete':true
+                    }
+                  }|json_encode }}"
+                  class="btn btn-sm btn-danger"
+                  title="Remover"
+                ><i class="fa fa-trash"></i></button>
+              </td>
+              
+              <td>{{ phone.name|raw }}</td>
+              <td>{{ phone.number|raw }}</td>
+              <td>{{ phone.created_at|date('d/m/Y H:i:s') }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

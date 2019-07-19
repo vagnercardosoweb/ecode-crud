@@ -5,7 +5,7 @@
  *
  * @author Vagner Cardoso <vagnercardosoweb@gmail.com>
  * @license http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright 04/07/2019 Vagner Cardoso
+ * @copyright 18/07/2019 Vagner Cardoso
  */
 
 namespace App\Models;
@@ -17,6 +17,6 @@ use Core\Database\Model as DatabaseModel;
  *
  * @author Vagner Cardoso <vagnercardosoweb@gmail.com>
  */
-abstract class Model extends DatabaseModel
+abstract class BaseModel extends DatabaseModel
 {
 }

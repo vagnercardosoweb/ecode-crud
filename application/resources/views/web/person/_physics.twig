@@ -1,0 +1,60 @@
+{% set action = row.id ? path_for('web.person', {'type':type, 'id':row.id}) : path_for('web.person', {'type':type}) %}
+{% set method = row.id ? 'put' : 'post' %}
+
+<form action="{{ action|raw }}" method="{{ method|raw }}" class="vc-error-none">
+  {% if not row %}
+    <p class="text-center text-muted">
+      <b>Obs:</b> para cadastrar o endereços e telefones deve criar a pessoa antes.
+    </p>
+  {% endif %}
+  
+  <div class="form-group">
+    <label for="name">Nome completo</label>
+    <input type="text" class="form-control" name="name" id="name" value="{{ row.name|raw }}" placeholder="Nome da pessoa" required>
+  </div>
+  
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="cpf">Cpf</label>
+      <input type="text" class="form-control maskCpf" name="cpf" id="cpf" value="{{ row.cpf|raw }}" placeholder="Cpf da pessoa" required>
+    </div>
+    
+    <div class="form-group col-md-6">
+      <label for="rg">Rg</label>
+      <input type="text" class="form-control maskRg" name="rg" id="rg" value="{{ row.rg|raw }}" placeholder="Rg da pessoa" required>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="sex">Sexo</label>
+      <select name="sex" id="sex" class="form-control">
+        <option disabled selected>.:: Selecione ::.</option>
+        <option value="male"{{ row.sex == 'male' ? ' selected' : '' }}>Masculino</option>
+        <option value="female"{{ row.sex == 'female' ? ' selected' : '' }}>Feminino</option>
+      </select>
+    </div>
+    
+    <div class="form-group col-md-6">
+      <label for="date_of_birth">Data de nascimento</label>
+      <input
+        type="text"
+        class="form-control maskDate"
+        name="date_of_birth"
+        id="date_of_birth"
+        value="{{ (row.date_of_birth ? row.date_of_birth|date('d/m/Y') : '')|raw }}"
+        placeholder="Data de nascimento"
+        required
+      >
+    </div>
+  </div>
+  
+  <div id="vc-message"></div>
+  
+  <button
+    vc-form
+    vc-loadding="Aguarde..."
+    class="btn btn-success btn-sm"
+  >{{ row ? 'Atualizar' : 'Cadastrar' }}
+  </button>
+</form>

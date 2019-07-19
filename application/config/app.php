@@ -5,7 +5,7 @@
  *
  * @author Vagner Cardoso <vagnercardosoweb@gmail.com>
  * @license http://www.opensource.org/licenses/mit-license.html MIT License
- * @copyright 04/07/2019 Vagner Cardoso
+ * @copyright 18/07/2019 Vagner Cardoso
  */
 
 return [
@@ -42,6 +42,7 @@ return [
         \App\Providers\JwtProvider::class,
         \App\Providers\LoggerProvider::class,
         \App\Providers\EventProvider::class,
+        \App\Providers\AuthProvider::class,
     ],
 
     // Registra as middlewares
@@ -58,6 +59,8 @@ return [
 
         // Middlewares iniciada manual
 
-        'manual' => [],
+        'manual' => [
+            'auth' => \App\Middlewares\AuthMiddleware::class,
+        ],
     ],
 ];

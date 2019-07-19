@@ -1,0 +1,12 @@
+.main-login {
+  height: 100vh;
+  
+  > form {
+    width: 80%;
+    max-width: 400px;
+    margin: auto;
+    border: 1px solid rgba(#dddddd, .5);
+    box-shadow: 0 10px 15px rgba(#dddddd, .5);
+    padding: 20px;
+  }
+}

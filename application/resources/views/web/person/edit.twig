@@ -1,0 +1,57 @@
+{# Layout #}
+{% extends '@web/layout/app.twig' %}
+
+{# Content #}
+{% block content %}
+  <div class="container mt-5">
+    <h1 class="text-center">Atualizar pessoa</h1>
+    <hr>
+    
+    {% include '@web/person/_buttons.twig' with {'row':row} %}
+    
+    <hr>
+    
+    {% if type == 'fisica' %}
+      {% include '@web/person/_physics.twig' with {
+        'type':type,
+        'row':person
+      } %}
+    {% endif %}
+    
+    {% if type == 'juridica' %}
+      {% include '@web/person/_juridical.twig' with {
+        'type':type,
+        'row':person
+      } %}
+    {% endif %}
+    
+    <hr>
+    
+    {# Endereços & Telefones #}
+    {% if person.id %}
+      <h1 class="text-center">Endereços</h1>
+      <hr>
+      
+      {% include '@web/person/_address.twig' with {
+        'type':type,
+        'person':person
+      } %}
+      
+      <h1 class="text-center">Telefones</h1>
+      <hr>
+  
+      {% include '@web/person/_phones.twig' with {
+        'type':type,
+        'person':person
+      } %}
+    {% endif %}
+    
+  </div>
+  
+  {% if person.id %}
+    {% import '@web/layout/macro.twig' as macro %}
+    
+    {{ macro.createModal('Gerenciar endereço', 'modalAddress') }}
+    {{ macro.createModal('Gerenciar telefone', 'modalPhones') }}
+  {% endif %}
+{% endblock %}
