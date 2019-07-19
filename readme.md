@@ -60,5 +60,5 @@ Quando feito esses passos você estará apto a entrar no sistema e gerenciar o c
 
 Caso tenha alguma dificuldade ao rodar o projeto pode entrar em contato atráves:
 
-- E-mail: vagnercardosoweb@gmail.cmo
+- E-mail: vagnercardosoweb@gmail.com
 - WhatsApp: (44) 98452-9998
