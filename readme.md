@@ -21,6 +21,8 @@ O projeto já vem com o docker-compose.yml configurado com:
 1. Baixar esse repositório.
 2. Entrar dentro da pasta **application**.
 3. Rodar o comando `composer install -o` para baixar as dependências.
+   Caso não tenha o composer no computador você deve entrar no SH do docker e lá você pode rodar o comando
+   dentro da pasta `/var/www/application`.
 4. Para rodar o projeto vocẽ deve rodar o comando no diretório que está o **docker-compose.yml**:
    `docker-compose up -d --build`, esse comando acima irá dar start na máquina (docker) e quando finalizar ele irá
    liberar o terminal e não ficará travado.
