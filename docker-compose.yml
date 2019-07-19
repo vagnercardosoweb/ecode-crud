@@ -4,6 +4,7 @@ services:
   web:
     build: ./docker
     working_dir: /var/www
+    container_name: service_web
     restart: always
     networks:
       - mysql-network
@@ -26,6 +27,7 @@ services:
   mysql:
     image: mysql:5.7
     command: --sql-mode=""
+    container_name: service_mysql
     restart: always
     networks:
       - mysql-network
@@ -40,6 +42,7 @@ services:
 
   #  phpmyadmin:
   #    image: phpmyadmin/phpmyadmin
+  #    container_name: service_phpmyadmin
   #    networks:
   #      - mysql-network
   #    depends_on:
@@ -52,6 +55,7 @@ services:
 
   #  pgsql:
   #    image: postgres
+  #    container_name: service_pgsql
   #    restart: always
   #    networks:
   #      - pgsql-network

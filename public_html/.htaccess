@@ -28,7 +28,7 @@
   RewriteCond %{REQUEST_URI} (.+)/$
   RewriteRule ^ %1 [L,R=301]
 
-  # Handle Front Controller...
+  # Handle Front BaseController...
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^ index.php [L]
@@ -56,7 +56,7 @@
     BrowserMatch ^Mozilla/4\.0[678] no-gzip
     BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
     SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip dont-vary
-    #Header append Vary User-Agent env=!dont-vary
+    #Header append Vary Admin-Agent env=!dont-vary
   </IfModule>
 </IfModule>
 

@@ -1,8 +1,8 @@
 {
-  "name": "VCWeb Networks",
-  "short_name": "VCWeb",
-  "theme_color": "#6272a4",
-  "background_color": "#282a36",
+  "name": "E/Code",
+  "short_name": "E/Code",
+  "theme_color": "#343a40",
+  "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
